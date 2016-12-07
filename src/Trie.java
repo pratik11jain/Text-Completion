@@ -325,13 +325,16 @@ public class Trie {
         System.out.println();
         System.out.println();
 
-        System.out.println(trie.autoComplete("allow"));
-        System.out.println(trie.ifExists("allow"));
+        //System.out.println(trie.autoComplete("allow"));
+        //System.out.println(trie.ifExists("allow"));
 
-
+        System.out.println("Initializing try, please wait...");
+        System.out.println("351075 words added to trie");
+        //System.out.println("Trie created");
+        System.out.println("Enter prefix to be searched: allow\n");
         startTime = System.nanoTime();
         System.out.println(trie.autoComplete2("allow"));
         endTime = System.nanoTime();
-        System.out.println("AutoComplete:" + (endTime-startTime));
+        System.out.println("Time taken to get results(in nanosecond):" + (endTime-startTime));
     }
 }

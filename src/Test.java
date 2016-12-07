@@ -3,12 +3,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Scanner;
 
 /**
  * Created by Anurag Jain-PC on 12/3/2016.
  */
 public class Test
 {
+    public Trie trie = new Trie();
+    public BinarySearchTree bst = new BinarySearchTree();
+    public AVLTree avlt = new AVLTree();
+    public TrieArray ta = new TrieArray();
 
     public HashSet<String> readWords(String fileName) {
         HashSet<String> words = new HashSet<String>();
@@ -52,17 +57,14 @@ public class Test
         return arr;
     }
 
-    public static void main(String[] args) {
+    public void maintest(){
         Trie trie = new Trie();
         BinarySearchTree bst = new BinarySearchTree();
         AVLTree avlt = new AVLTree();
         TrieArray ta = new TrieArray();
         Test t = new Test();
         HashSet<String> allWords = t.readWords("F:\\Algo\\project\\dicitionary.txt");
-
-
-
-
+        Scanner s = new Scanner(System.in);
         long[] rBst ={0, 0, 0, 0}, rTa={0, 0, 0, 0}, rAvl={0, 0, 0, 0}, rTh = {0, 0, 0, 0};
         long[] dataSize = {0,0,0,0};
         for(int i = 1; i <= 4; i++)
@@ -99,40 +101,202 @@ public class Test
 
     }
 
-}
 
-//
-        /*ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < word.length(); i++) {
-            char character = word.charAt(i);
-            if (!temp.getPointers().keySet().contains(character))
-                return list;
-            temp = temp.getPointers().get(character);
-            if (i == word.length() - 1 && temp.isWord()) {
-                list.add(word);
-                count--;
-            }
+    public static void main(String[] args) {
+
+        Test t2 = new Test();
+        while (true ){
+            t2.menu();
         }
 
-        ArrayList<String> keyFringe = new ArrayList<>();
-        ArrayList<TrieNode> valueFringe = new ArrayList<>();
+    }
 
-        for(Character c: temp.getPointers().keySet()){
-            keyFringe.add(""+c);
-            valueFringe.add(temp.getPointers().get(c));
+
+    public void menu() {
+        Scanner s = new Scanner(System.in);
+        int ds, op;
+        String word = null;
+
+
+        System.out.println("Choose the data structure you wish to test:\n1> Standard Trie\n2> HashMap based Trie" +
+                "\n3> BST\n4> AVL Tree\nEnter choice:");
+
+        ds = s.nextInt();
+        while(true) {
+            System.out.println("Choose the operation you wish to perform:\n1> Insert\n2> Spell Check" +
+                    "\n3> Text Completion\n4> Delete\n5> Exit to main menu\nEnter choice:");
+
+            op = s.nextInt();
+            if(op!=5){
+                System.out.println("Please enter query word(spaces not allowed)::");
+                word = s.next();
+            }
+            switch (ds) {
+                case 1:
+                    opTrieArray(op, word);
+                    break;
+                case 2:
+                    opTrie(op, word);
+                    break;
+                case 3:
+                    opBST(op, word);
+                    break;
+                case 4:
+                    opAVT(op, word);
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.exit(1);
+            }
         }
+    }
 
-        for(int i=0; i<keyFringe.size(); i++) {
-            String c = keyFringe.get(i);
-            if (valueFringe.get(i).isWord()) {
-                list.add(word + c);
-                count--;
-            }
-            for (Character c1 : valueFringe.get(i).getPointers().keySet()) {
-                keyFringe.add("" + c + c1);
-                valueFringe.add(valueFringe.get(i).getPointers().get(c1));
-            }
-
-            if (count == 0)
+    public void opTrie(int op, String word){
+        switch(op)
+        {
+            case 1:
+                if (trie.insert(word)){
+                    System.out.println(word + " inserted to trie");
+                }
+                else {
+                    System.out.println("Insert operation failed");
+                }
                 break;
-        }*/
+            case 2:
+                if (trie.ifExists(word)){
+                    System.out.println(word + " exists");
+                }
+                else {
+                    System.out.println(word + " not found");
+                }
+                break;
+            case 3:
+                ArrayList<String> result = trie.autoComplete(word);
+                if (result.size() == 0){
+                    System.out.println("No word found with prefix " + word);
+                }
+                else {
+                    System.out.println(result);
+                }
+                break;
+            case 4:
+                if (trie.delete(word)){
+                    System.out.println(word + " deleted from trie");
+                }
+                else {
+                    System.out.println("Delete operation failed");
+                }
+                break;
+            default:
+                System.exit(1);
+        }
+    }
+
+    public void opTrieArray(int op, String word){
+        switch(op)
+        {
+            case 1:
+                ta.addString(word);
+                System.out.println(word + "added to trie");
+                break;
+            case 2:
+                if (ta.isWord(word)){
+                    System.out.println(word + " exists");
+                }
+                else {
+                    System.out.println(word + " not found");
+                }
+                break;
+            case 3:
+                ArrayList<String> result = ta.autoComplete(word);
+                if (result.size() == 0){
+                    System.out.println("No word found with prefix " + word);
+                }
+                else {
+                    System.out.println(result);
+                }
+                break;
+            case 4:
+                if (ta.delete(word)){
+                    System.out.println(word + " deleted from trie");
+                }
+                else {
+                    System.out.println("Delete operation failed");
+                }
+                break;
+            default:
+                System.exit(1);
+        }
+    }
+
+    public void opBST(int op, String word){
+        switch(op)
+        {
+            case 1:
+                if (bst.insert(word)){
+                    System.out.println(word + " inserted to trie");
+                }
+                else {
+                    System.out.println("Insert operation failed");
+                }
+                break;
+            case 2:
+                if (bst.ifExists(word)){
+                    System.out.println(word + " exists");
+                }
+                else {
+                    System.out.println(word + " not found");
+                }
+                break;
+            case 3:
+                ArrayList<String> result = bst.autoComplete(word);
+                if (result.size() == 0){
+                    System.out.println("No word found with prefix " + word);
+                }
+                else {
+                    System.out.println(result);
+                }
+                break;
+            case 4:
+                System.out.println(word + " deleted from trie");
+
+                break;
+            default:
+                System.exit(1);
+        }
+    }
+
+
+    public void opAVT(int op, String word){
+        switch(op)
+        {
+            case 1:
+                avlt.insert(avlt.root, word);
+                break;
+            case 2:
+                if (avlt.ifExists(avlt.root, word)){
+                    System.out.println(word + " exists");
+                }
+                else {
+                    System.out.println(word + " not found");
+                }
+                break;
+            case 3:
+                ArrayList<String> result = avlt.autoComplete(avlt.root, word);
+                if (result.size() == 0){
+                    System.out.println("No word found with prefix " + word);
+                }
+                else {
+                    System.out.println(result);
+                }
+                break;
+            case 4:
+                avlt.deleteNode(avlt.root, word);
+                System.out.println(word + " deleted from trie");
+                break;
+            default:
+                System.exit(1);
+        }
+    }
+}

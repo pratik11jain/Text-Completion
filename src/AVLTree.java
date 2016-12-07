@@ -81,14 +81,14 @@ class AVLTree
     }
 
     // Get Balance factor of node N
-    int getBalance(Node N)
+    public int getBalance(Node N)
     {
         if (N == null)
             return 0;
         return height(N.left) - height(N.right);
     }
 
-    Node insert(Node node, String key)
+    public Node insert(Node node, String key)
     {
         /* 1.  Perform the normal BST rotation */
         if (node == null)
@@ -138,7 +138,7 @@ class AVLTree
     }
 
 
-    boolean ifExists(Node node, String key)
+    public boolean ifExists(Node node, String key)
     {
         /* 1.  Perform the normal BST rotation */
         if (node == null)
@@ -152,7 +152,7 @@ class AVLTree
             return true;
     }
 
-    private ArrayList<String> autoComplete(Node node, String word){
+    public ArrayList<String> autoComplete(Node node, String word){
         ArrayList<String> list = new ArrayList<>();
         if (node == null) {
             return list;
@@ -204,7 +204,7 @@ class AVLTree
         return current;
     }
 
-    Node deleteNode(Node root, String key)
+    public Node deleteNode(Node root, String key)
     {
         // STEP 1: PERFORM STANDARD BST DELETE
         if (root == null)

@@ -12,7 +12,7 @@ public class BinarySearchTree {
 
     // This method mainly calls deleteRec()
     // http://quiz.geeksforgeeks.org/binary-search-tree-set-2-delete/
-    void delete(String word)
+    public void delete(String word)
     {
         head = deleteRec(head, word);
     }
@@ -61,7 +61,7 @@ public class BinarySearchTree {
         return minv;
     }
 
-    private boolean insert(String word){
+    public boolean insert(String word){
         TreeNode temp = this.head;
         word = word.toLowerCase();
         if (temp == null){
@@ -107,7 +107,7 @@ public class BinarySearchTree {
         return true;
     }
 
-    private boolean ifExists(String word){
+    public boolean ifExists(String word){
         TreeNode temp = this.head;
         word = word.toLowerCase();
         if (temp == null){
@@ -136,7 +136,7 @@ public class BinarySearchTree {
         }
     }
 
-    private ArrayList<String> autoComplete(String word){
+    public ArrayList<String> autoComplete(String word){
         ArrayList<String> list = new ArrayList<>();
         if (head == null) {
             return list;
